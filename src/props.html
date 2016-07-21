@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React with Bucky</title>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+
+<div id="example"></div>
+
+<script type="text/babel">
+
+    var Movie = React.createClass({
+        render: function() {
+            return (
+                    <div>
+                        <h1>{this.props.title}</h1>
+                        <h2>{this.props.genre}</h2>
+                    </div>
+            );
+        }
+    });
+
+    ReactDOM.render(
+            <div>
+                <Movie title="Avatar" genre="action" />
+                <Movie title="American Beauty" genre="drama" />
+            </div>
+            , document.getElementById("example"));
+
+</script>
+
+</body>
+</html>

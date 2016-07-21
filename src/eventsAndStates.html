@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React with Bucky</title>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+
+<div id="example"></div>
+
+<script type="text/babel">
+
+    var Checkbox = React.createClass({
+        
+        getInitialState: function () {
+            return {checked: false}
+        },
+
+        handleChecked: function () {
+            this.setState({checked: !this.state.checked});
+        },
+        
+        render: function() {
+            var msg;
+            if (this.state.checked) {
+                msg = "checked";
+            } else {
+                msg = "unchecked";
+            }
+            return (
+                    <div>
+                        <input type="checkbox" onChange={this.handleChecked} defaultChecked={this.state.checked} />
+                        <h2>Checkbox is {msg}</h2>
+                    </div>
+            );
+        }
+    });
+
+    ReactDOM.render(<Checkbox/>, document.getElementById("example"));
+
+</script>
+
+</body>
+</html>

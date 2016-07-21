@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React with Bucky</title>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+
+    <div id="example"></div>
+
+    <script type="text/babel">
+
+        var Bacon = React.createClass({
+            render: function() {
+                return (<h2>This is a simple component</h2>);
+            }
+        });
+
+        ReactDOM.render(<Bacon/>, document.getElementById("example"));
+
+    </script>
+
+</body>
+</html>

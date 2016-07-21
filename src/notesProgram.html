@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes App - React with Bucky</title>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+
+<div id="container"></div>
+
+<script type="text/babel">
+
+    var Comment = React.createClass({
+
+        getInitialState: function () {
+            return {editing: false};
+        },
+        edit: function () {
+            this.setState({editing: true});
+        },
+        remove: function () {
+            console.log("removing");
+            this.props.removeFromBoard(this.props.index);
+        },
+        save: function () {
+            var value = this.refs.newText.value;
+            console.log("Saving comment: " + value);
+            this.props.updateCommentText(value, this.props.index);
+            this.setState({editing: false});
+        },
+
+        renderNormal: function () {
+            return (
+                    <div>
+                        <div>{this.props.children}</div>
+                        <button onClick={this.edit}>Edit</button>
+                        <button onClick={this.remove}>Remove</button>
+                    </div>
+            );
+        },
+
+        renderEditing: function () {
+            return (
+                    <div>
+                        <textarea ref="newText" defaultValue={this.props.children}></textarea>
+                        <button onClick={this.save}>Save</button>
+                    </div>
+            );
+        },
+
+        render: function () {
+            if (this.state.editing) {
+                return this.renderEditing();
+            } else {
+                return this.renderNormal();
+            }
+        }
+    });
+
+    var Board = React.createClass({
+
+        getInitialState: function () {
+            return {
+                comments: [
+                    "Hello",
+                    "Bacon",
+                    "Kokko"
+                ]
+            };
+        },
+        removeComment: function (i) {
+            console.log("Removing comment: " + i);
+            var arr = this.state.comments;
+            arr.splice(i, 1);
+            this.setState({comments: arr});
+        },
+        updateComment: function (newText, i) {
+            console.log("Updating comment: " + i);
+            var arr = this.state.comments;
+            arr[i] = newText;
+            this.setState({comments: arr});
+        },
+        eachComment: function (text, i) {
+            return (
+                    <Comment key={i} index={i} updateCommentText={this.updateComment} removeFromBoard={this.removeComment}>
+                        {text}
+                    </Comment>
+            );
+        },
+
+        render: function () {
+            return (
+                    <div>
+                        {this.state.comments.map(this.eachComment)}
+                    </div>
+            );
+        }
+
+    });
+
+    ReactDOM.render(
+            <Board />
+            , document.getElementById("container"));
+
+
+</script>
+
+</body>
+</html>
